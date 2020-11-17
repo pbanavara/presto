@@ -27,10 +27,12 @@ RUN \
     groupadd presto --gid 1000 && \
     useradd presto --uid 1000 --gid 1000 && \
     mkdir -p /usr/lib/presto /data/presto && \
+    mkdir -p /usr/lib/presto/plugin/aerospike && \
     chown -R "presto:presto" /usr/lib/presto /data/presto
 
 ARG PRESTO_VERSION
 COPY presto-cli-${PRESTO_VERSION}-executable.jar /usr/bin/presto
+COPY aero/*.jar /usr/lib/presto/plugin/areospike/
 COPY --chown=presto:presto presto-server-${PRESTO_VERSION} /usr/lib/presto
 
 EXPOSE 8080
