@@ -1,0 +1,26 @@
+{
+    "schemaName": "test",
+    "tableName": "table1",
+    "columns":[
+        {
+            "name": "id",
+            "type": "varchar",
+            "hidden": false
+        },
+        {
+            "name": "int",
+            "type": "bigint",
+            "hidden": false
+        },
+        {
+            "name": "list",
+            "type": "json",
+            "hidden": false
+        },
+        {
+            "name": "map",
+            "type": "json",
+            "hidden": false
+        }
+    ]
+}

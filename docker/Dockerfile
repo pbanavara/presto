@@ -32,7 +32,7 @@ RUN \
 
 ARG PRESTO_VERSION
 COPY presto-cli-${PRESTO_VERSION}-executable.jar /usr/bin/presto
-COPY aero/*.jar /usr/lib/presto/plugin/areospike/
+COPY aero/*.jar /usr/lib/presto/plugin/aerospike/
 COPY --chown=presto:presto presto-server-${PRESTO_VERSION} /usr/lib/presto
 
 EXPOSE 8080

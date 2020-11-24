@@ -19,10 +19,9 @@ rm ${WORK_DIR}/presto-server-${PRESTO_VERSION}.tar.gz
 cp -R bin default ${WORK_DIR}/presto-server-${PRESTO_VERSION}
 
 cp ../presto-cli/target/presto-cli-${PRESTO_VERSION}-executable.jar ${WORK_DIR}
-cp ../plugin/presto-aerospike-0.3.0/*.jar ${WORK_DIR}/aero/
+cp ../plugins/presto-aerospike-0.3.0/*.jar ${WORK_DIR}/aero/
 
-
-docker build ${WORK_DIR} --pull -f Dockerfile --build-arg "PRESTO_VERSION=${PRESTO_VERSION}" -t "presto:${PRESTO_VERSION}"
+docker build ${WORK_DIR} --pull -f Dockerfile --build-arg "PRESTO_VERSION=${PRESTO_VERSION}" -t "pbanavara/aerospike-presto-connect:latest"
 
 rm -r ${WORK_DIR}
 
