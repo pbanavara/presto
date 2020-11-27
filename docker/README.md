@@ -1,4 +1,4 @@
-# Presto Docker Image
+# Aerospike Presto Plugin Docker Image
 
 ## About the Container
 This Docker image is designed to provide the following
@@ -6,6 +6,8 @@ This Docker image is designed to provide the following
  catalogs
 * An image that can be deployed as a full cluster by mounting in configuration
 * An image to be used as the basis for the Kubernetes Presto operator
+* An image that contains the Aerospike plugin jars to connect with an external
+* Aerospike database
 
 ## Quickstart
 
@@ -14,9 +16,14 @@ This Docker image is designed to provide the following
 You can launch a single node Presto cluster for testing purposes.
 The Presto node will function both as a coordinator and a worker.
 To launch it, execute the following:
+```bash
+cd docker
+./build-local.sh
+```
 
 ```bash
-docker run -p 8080:8080 --name presto prestosql/presto
+docker run -e AEROSPIKE_HOST=<EXTERNAL HOST> -e AEROSPIKE_PORT=<PORT> -p
+8080:8080 pbanavara/aerospike-presto-connect:latest
 ```
 
 Wait for the following message log line:
@@ -32,13 +39,7 @@ Run the [Presto CLI](https://prestosql.io/docs/current/installation/cli.html),
 which connects to `localhost:8080` by default:
 
 ```bash
-docker exec -it presto presto
-```
-
-You can pass additional arguments to the Presto CLI:
-
-```bash
-docker exec -it presto presto --catalog tpch --schema sf1
+presto-cli-347-SNAPSHOT-executable.jar --server 0.0.0.0:8080 --catalog aerospike
 ```
 
 ## Configuration
@@ -55,6 +56,12 @@ The container supplied `run-presto` command will set the config property
 `node.properties` file. This allows for `node.properties` to be a static file
 across all worker nodes if desired. Additionally this has the added benefit of
 `node.id` being consistent, predictable, and stable through restarts.
+
+#### `etc/catalog/aerospike.properties`
+Properties specific to the aerospike presto plugin.
+
+#### `etc/aerospike/config.json`
+Schema specifications for aerospike
 
 #### `node.data-dir`
 The default configuration uses `/data/presto` as the default for

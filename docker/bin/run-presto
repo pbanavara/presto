@@ -20,4 +20,8 @@ if [[ ${NODE_ID_EXISTS} != 0 ]] ; then
     NODE_ID="-Dnode.id=${HOSTNAME}"
 fi
 
+#replace the aerospike host name in etc/catalog/aerospike.properties
+sed -i "s/AEROSPIKE_HOST/${AEROSPIKE_HOST}/g" /usr/lib/presto/default/etc/catalog/aerospike.properties
+sed -i "s/AEROSPIKE_PORT/${AEROSPIKE_PORT}/g" /usr/lib/presto/default/etc/catalog/aerospike.properties
+
 exec /usr/lib/presto/bin/launcher run ${NODE_ID} "$@"
